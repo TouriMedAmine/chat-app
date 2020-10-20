@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block content %}
+<hr class="sidebar-divider my-0">
+ <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <span>Friends</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+
+      <!-- Nav Item - Pages Collapse Menu -->
+   
+		<li class="nav-item">
+        	<a class="nav-link " href="#" >
+				      <span>
+                 amin12 
+              </span>
+	    	  </a> 
+	   </li>
+	   <li class="nav-item">
+          <a class="nav-link " href="#" >
+              <span>
+                 hanane 
+              </span>
+          </a> 
+     </li>
+     <li class="nav-item">
+          <a class="nav-link " href="#" >
+              <span>
+                 hassan 
+              </span>
+          </a> 
+     </li>
+     <li class="nav-item">
+          <a class="nav-link " href="#" >
+              <span>
+                 ali 
+              </span>
+          </a> 
+     </li>
+     <li class="nav-item">
+          <a class="nav-link " href="#" >
+              <span>
+                 oussama
+              </span>
+          </a> 
+     </li>
+
+    
+      <!-- Divider -->
+   
+
+      <!-- Heading -->
+      
+
+    
+<hr class="sidebar-divider my-0">
+ <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <span>Friend Requests</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Received
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+    {% if fr %}
+		{% for r in fr %}
+		<li class="nav-item">
+
+			<a class="nav-link " href="#" >
+				
+				<span> accept {{r.from_user}} </span> 
+			</a> 
+
+		</li>
+
+		{% endfor %}
+	{% endif %}
+              
+      
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Sent
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+     
+		<li class="nav-item">
+
+			<a class="nav-link " href="#" >
+				
+				<span> cancel alae-eddine </span> 
+			</a> 
+
+		</li>
+
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          
+
+          <!-- Topbar Search -->
+        
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="/search/" >
+            {% csrf_token %}
+
+            <div class="input-group">
+              <input type="text" name="srh" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              
+                  <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+             
+            </li>
+
+
+<div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+    <li class="nav-item dropdown no-arrow">
+        {% if user.is_authenticated %}
+        <a class="nav-link dropdown-toggle" href="{% url 'logout' %}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">logout</span>
+        </a>
+        {% else %}
+        <a class="nav-link dropdown-toggle" href="{% url 'login' %}" id="userDropdown" role="data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        	<span class="mr-2 d-none d-lg-inline text-gray-600 small">login</span>
+        </a>
+              
+     	 {% endif %}
+     	 
+
+              <!-- Dropdown - User Information -->
+              
+    </li>
+
+  </ul>
+
+</nav>
+
+<div class="container-fluid">
+
+          <!-- Page Heading -->   
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+    <h1 class="h3 mb-0 text-gray-800">Thread for {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %} </h1>
+</div>
+<br><br>
+
+
+<ul id='chat-items'>
+{% for chat in object.chatmessage_set.all %}
+
+<li><h6 style="color:black;">{{ chat.user }} :</h6>  {{ chat.message }}  </li>
+
+{% endfor %}
+</ul>
+
+
+<form id='form' method='POST'> {% csrf_token %}
+{{form.as_p }}
+<input type='submit' class='btn btn-primary'/>
+</form>
+
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js"></script>
+
+<script>
+// websocket scripts
+//console.log(window.location)
+var loc = window.location
+var formData = $("#form")
+var msgInput = $("#id_message")
+var chatHolder = $("#chat-items")
+
+
+var wsStart = 'ws://'
+if(loc.protocol == 'https:'){
+	wsStart = 'wss://'
+}
+
+var endpoint = wsStart + loc.host + loc.pathname + "/" 
+//console.log(endpoint)
+var socket = new ReconnectingWebSocket(endpoint)
+
+socket.onmessage = function(e){
+	console.log("message", e)
+	var msgText = msgInput.val()
+	var chatDataMsg = JSON.parse(e.data)
+	/*chatHolder.append("<li>"+ chatDataMsg.message + " via " + chatDataMsg.username "</li>") */
+	
+	chatHolder.append("<li> <h6 style='color:black;'>"+ chatDataMsg.username +" :</h6>"  + chatDataMsg.message +"</li>")
+}
+socket.onopen = function(e){
+	console.log("open", e)
+	formData.submit(function(event){
+		event.preventDefault()
+		var msgText = msgInput.val()
+		var finalData ={
+			'message': msgText
+		}
+		socket.send(JSON.stringify(finalData))
+		formData[0].reset()
+		
+	})
+	
+}
+
+socket.onerror = function(e){
+	console.log("error", e)
+}
+socket.onclose = function(e){
+	console.log("close", e)
+}
+
+</script>
+{% endblock %}

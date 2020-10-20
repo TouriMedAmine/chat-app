@@ -1,0 +1,9 @@
+lib
+include 
+scripts
+tcl
+LICENSE
+src1
+__pycache__
+staticfiles
+migrations
